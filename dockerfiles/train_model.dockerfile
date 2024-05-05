@@ -1,5 +1,5 @@
 # Base image
-FROM python:3.11-slim
+FROM python:3.8-slim-buster
 
 RUN apt update && \
     apt install --no-install-recommends -y build-essential gcc && \
