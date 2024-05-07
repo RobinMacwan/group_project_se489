@@ -61,7 +61,7 @@ The directory structure of the project looks like this:
 Created using [cookiecutter template](https://github.com/cookiecutter/cookiecutter) for getting
 started with Machine Learning Operations (MLOps).
 
-### STEP 01- Create a conda environment after opening the repository
+### Create a conda environment after opening the repository
 
 ```bash
 conda create -n grp_env python=3.8 -y
@@ -87,6 +87,18 @@ open up you local host and port
 
 ##### cmd (to check your model on mlflow ui without logging to dagshub/mlflow remote)
 - mlflow ui
+
+## Please update files in below order
+
+Update config.yaml
+Update params.yaml
+Update the model_classes
+Update the configurationManager in se489_group_project config
+Update the components
+Update the pipeline
+Update the main.py
+Update the dvc.yaml <optional>
+app.py
 
 ### dagshub
 
