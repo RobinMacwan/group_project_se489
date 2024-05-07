@@ -60,3 +60,17 @@ The directory structure of the project looks like this:
 
 Created using [cookiecutter template](https://github.com/cookiecutter/cookiecutter) for getting
 started with Machine Learning Operations (MLOps).
+
+### STEP 01- Create a conda environment after opening the repository
+
+```bash
+conda create -n grp_env python=3.8 -y
+```
+
+```bash
+conda activate 
+```
+
+```bash
+pip install -r requirements.txt
+```
