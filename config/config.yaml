@@ -1,0 +1,16 @@
+data_storage: data
+
+data_ingestion:
+  root_dir: data/raw
+  source_URL: https://drive.google.com/file/d/1gesLApompvvnzz-AWyWM4ikmk7BOGWAp/view?usp=sharing
+  local_data_file: data/raw/data.zip
+  unzip_dir: data/raw
+
+prepare_base_model:
+  root_dir: data/prepare_base_model
+  base_model_path: data/prepare_base_model/base_model.h5
+  updated_base_model_path: data/prepare_base_model/base_model_updated.h5
+
+training:
+  root_dir: data/training
+  trained_model_path: data/training/model.h5
