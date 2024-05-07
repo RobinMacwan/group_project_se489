@@ -1,6 +1,6 @@
 # se489_group_project
 
-mDePaul SE489 group project
+# Kidney Disease diagnosis DL model
 
 ## Project structure
 
@@ -74,3 +74,64 @@ conda activate
 ```bash
 pip install -r requirements.txt
 ```
+
+```bash
+# Finally run the following command
+python app.py
+```
+
+Now,
+```bash
+open up you local host and port
+```
+
+##### cmd (to check your model on mlflow ui without logging to dagshub/mlflow remote)
+- mlflow ui
+
+### dagshub
+
+Run this to export as env variables:
+
+```bash
+
+export MLFLOW_TRACKING_URI= https://dagshub.com/RobinMacwan/group_project_se489.mlflow
+
+export MLFLOW_TRACKING_USERNAME=RobinMacwan
+
+export MLFLOW_TRACKING_PASSWORD= <available upon request>
+
+```
+
+### DVC cmd for looking up code dependancy 
+
+1. dvc init
+2. dvc dag
+
+for example 
++----------------+            +--------------------+
+| data_ingestion |            | prepare_base_model |
++----------------+*****       +--------------------+
+         *             *****             *
+         *                  ******       *
+         *                        ***    *
+         **                        +----------+
+           **                      | training |
+             ***                   +----------+
+                ***             ***
+                   **         **
+                     **     **
+                  +------------+
+                  | evaluation |
+                  +------------+
+
+### REFERENCES/Citation
+
+#[1] Model used : Vgg16 - https://keras.io/api/applications/vgg/
+
+#[2] Test Data: CT Kidney dataset : https://www.kaggle.com/datasets/nazmul0087/ct-kidney-dataset-normal-cyst-tumor-and-stone/code
+
+#[3] Code help: https://github.com/malleswarigelli/Chest_Disease_Image_Classification_
+
+
+
+
