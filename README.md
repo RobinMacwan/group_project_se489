@@ -90,15 +90,15 @@ open up you local host and port
 
 ## Please update files in below order
 
-Update config.yaml
-Update params.yaml
-Update the model_classes
-Update the configurationManager in se489_group_project config
-Update the components
-Update the pipeline
-Update the main.py
-Update the dvc.yaml <optional>
-app.py
+1.Update config.yaml
+2.Update params.yaml
+3.Update the model_classes
+4.Update the configurationManager in se489_group_project config
+5.Update the components
+6.Update the pipeline
+7.Update the main.py
+8.Update the dvc.yaml <optional>
+9.app.py
 
 ### dagshub
 
