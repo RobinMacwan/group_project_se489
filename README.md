@@ -108,21 +108,7 @@ export MLFLOW_TRACKING_PASSWORD= <available upon request>
 2. dvc dag
 
 for example 
-+----------------+            +--------------------+
-| data_ingestion |            | prepare_base_model |
-+----------------+*****       +--------------------+
-         *             *****             *
-         *                  ******       *
-         *                        ***    *
-         **                        +----------+
-           **                      | training |
-             ***                   +----------+
-                ***             ***
-                   **         **
-                     **     **
-                  +------------+
-                  | evaluation |
-                  +------------+
+![Dependancy diagram](image.png)
 
 ### REFERENCES/Citation
 
