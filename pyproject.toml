@@ -7,7 +7,7 @@ name = "se489_group_project"
 version = "0.0.1"
 description = "mDePaul SE489 group project"
 authors = [
-  { name = "Jon Doretti", email = "your@email.com" },
+  { name = "Jon Doretti, , Robinkumar Macwan, Erica Troupe", email = "your@email.com" },
 ]
 license = { file = "LICENSE" }
 readme = "README.md"
