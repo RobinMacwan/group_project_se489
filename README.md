@@ -76,13 +76,13 @@ pip install -r requirements.txt
 ```
 
 ```bash
-# Finally run the following command
-python app.py
+# run following command
+python app.py or python main.py
 ```
 
 Now,
 ```bash
-open up you local host and port
+open localhost and port(8080) / http://127.0.0.1:8080
 ```
 
 ##### cmd (to check your model on mlflow ui without logging to dagshub/mlflow remote)
@@ -121,7 +121,8 @@ export MLFLOW_TRACKING_PASSWORD= <available upon request>
 1. dvc init
 2. dvc dag
 
-for example 
+- for example 
+
 ![Dependancy diagram](image.png)
 
 ### REFERENCES/Citation
@@ -131,6 +132,9 @@ for example
 #[2] Test Data: CT Kidney dataset : https://www.kaggle.com/datasets/nazmul0087/ct-kidney-dataset-normal-cyst-tumor-and-stone/code
 
 #[3] Code help: https://github.com/malleswarigelli/Chest_Disease_Image_Classification_
+
+#[4] app.py/index.html: we use generic bootstrap ui 
+
 
 
 
