@@ -86,6 +86,8 @@ open up you local host and port
 ```
 
 ##### cmd (to check your model on mlflow ui without logging to dagshub/mlflow remote)
+- cd se489_group_project
+- cd components
 - mlflow ui
 
 ## Please update files in below order
