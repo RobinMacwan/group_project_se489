@@ -2,11 +2,11 @@
 
 # Kidney Disease diagnosis DL model
 
-##Project Description
+## Project Description
 
 The project aims to develop a deep learning model using the [1] VGG16 architecture to detect kidney tumors in CT scans. The model will be trained on the [2] CT Kidney Dataset, which contains images of normal kidneys and kidneys with tumors. By leveraging the VGG16 model's ability to extract intricate features from images, the goal is to create a reliable tool for early detection of kidney tumors, aiding in timely medical interventions and improved patient outcomes. 
 
-###Below highlights the technology stack: 
+### Below highlights the technology stack: 
 
 Cookiecutter template – file structure. 
 
