@@ -109,6 +109,8 @@ The save_model() method is used to save the trained model to disk
 	 
 
 ##Summary 
+###	 Figure 1. DVC Lifecycle 
+![Alt text](dvclifecycle.png)
 
 ###VGG16  Overview
 - Consists of 16 weight layers: 
@@ -171,7 +173,7 @@ Utilizing the params.yaml file. We are able to manually fine tune are hyperparam
 - Training Loss: Training loss is lower. 
 - Training Accuracy: The accuracy of this model is the lowest out of all three.
 - Validation Loss: The validation loss increased in this model. 
-  - It is not generalizing the as well as the second model.
+    - However, it is not generalizing the dataset as well as the second model.
 - Validation Accuracy: Dramatically decreased. This model is performing poorly on unseen data.
 
 Based of these metrics the learning rate will remain at 0.001. 
@@ -198,6 +200,7 @@ will be tested.
 |-------|--------------|-----------------|---------------------|-------------------|-----------------------|
 | 1     | 16           | 1.2175          | 0.5562              | 1.2346            | 0.4375                | 
 | 2     | 16           | 0.4491          | 0.7893              | 2.2818            | 0.4750                | 
+
 | Epoch | Batch Size   | TRAINING LOSS   | TRAINING ACCURACY   | VALIDATION LOSS   | VALIDATION ACCURACY   |
 |-------| ------------ | --------------- | ------------------- | ----------------- | --------------------- |
 | 1     | 32           | 1.1818          | 0.5353              | 0.5466            | 0.7500                | 
