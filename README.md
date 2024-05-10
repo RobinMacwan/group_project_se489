@@ -2,6 +2,30 @@
 
 # Kidney Disease diagnosis DL model
 
+##Project Description
+
+The project aims to develop a deep learning model using the [1] VGG16 architecture to detect kidney tumors in CT scans. The model will be trained on the [2] CT Kidney Dataset, which contains images of normal kidneys and kidneys with tumors. By leveraging the VGG16 model's ability to extract intricate features from images, the goal is to create a reliable tool for early detection of kidney tumors, aiding in timely medical interventions and improved patient outcomes. 
+
+	Below highlights the technology stack: 
+
+Cookiecutter template – file structure. 
+
+GitHub – Version control. 
+
+DVC – data version control. 
+
+MLflow – compare trained models 
+
+Docker – load models into containers 
+
+AWS – host models inside of a web interface 
+
+Keras – User-friendly deep learning model development 
+
+Jupyter Notebook – Interactive development and experimentation 
+
+TensorFlow –Loading/Training models, Data preprocessing, Data Generator Creation 
+
 ## Project structure
 
 The directory structure of the project looks like this:
