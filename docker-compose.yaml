@@ -1,12 +1,6 @@
-version: "3"
+version: '3'
 services:
-  trainer:
-    image: trainer:latest
-    build:
-      context: .
-      dockerfile: dockerfiles/train_model.dockerfile
-  predict:
-    image: predict:latest
-    build:
-      context: .
-      dockerfile: dockerfiles/predict_model.dockerfile
+  application:
+    image: "${IMAGE_NAME}"
+    ports:
+      - "8080:8080"
