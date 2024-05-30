@@ -36,7 +36,7 @@ class PrepareBaseModel:
         self.config = config
 
     
-    def get_base_model(self):
+    async def get_base_model(self):
         """
         Load the base VGG16 model with the specified parameters and save it to disk.
 
@@ -92,10 +92,11 @@ class PrepareBaseModel:
                 model.trainable = False
 
         flatten_in = tf.keras.layers.Flatten()(model.output)
+        batch_norm = tf.keras.layers.BatchNormalization()(flatten_in)
         prediction = tf.keras.layers.Dense(
             units=classes,
             activation="softmax"
-        )(flatten_in)
+        )(batch_norm)
 
         full_model = tf.keras.models.Model(
             inputs=model.input,
@@ -112,7 +113,7 @@ class PrepareBaseModel:
         return full_model
     
     
-    def update_base_model(self):
+    async def update_base_model(self):
         """
         Prepare and update the base model for further training.
 

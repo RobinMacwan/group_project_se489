@@ -222,7 +222,7 @@ Overall Model Accuracy Bar Graph
 Overall Model Loss Bar Graph
 ![Alt text](ModelLossAccuracyBarGraph.png)
 
-| Number of Epochs | Accuracy | Loss  |  Learning Rate | Epochs |
+| Name             | Accuracy | Loss  |  Learning Rate | Epochs |
 |------------------|----------|-------|---------------|--------|
 | Version 1        | 0.604    | 1.686 |      0.01     | 1      |
 | Version 2        | 0.748    | 0.552 |      0.001    | 1      |
@@ -249,6 +249,126 @@ There are still hyperparameters that we can fine tune to improve our model. Such
 - Using an optimizer to experiment with optimizer parameters
 - Using regularization techniques
 - etc..
+
+
+#cProfiler
+##Overview
+cProfiler was integrated into our existing Workflow and Jupyter Notebooks . It provided detailed statistics about function calls. We were able to make improvements to some of our functions with the 
+utilaztion of asynchronous operations, manage pool workers with ThreadPoolExecuter, etc....  The test were performed in Jupyter Notebook and later added to the ourk workflow. Workflow was verified using curl to trigger training endpoint.
+
+##Performance Testing and Metrics From cProfiler
+To evaluate the performance imact of the changes, we measured different functions before and after the optimizations.
+
+##Comparison Before and After Optimization Of Data Ingestion
+
+|Function     |Before Optimization     |After Opitimization    |Difference   |
+|-------------|------------------------|-----------------------|-------------|
+|download_file|13.2                    |9.55                   |-3.65        |
+|download     |13.2                    |9.54                   |-3.66        |
+|generate     |12.0                    |8.60                   |-3.40        |
+|stream       |12.0                    |8.60                   |-3.40        |
+|read         |12.0                    |8.60                   |-3.40        |
+|_raw_read    |11.9                    |8.57                   |-3.33        |
+|_fp_read     |11.9                    |8.56                   |-3.34        |
+|read         |11.9                    |8.56                   |-3.34        |
+|readinto     |11.9                    |8.51                   |-3.39        |
+|read         |11.9                    |8.51                   |-3.39        |
+ 
+##Analysis of Results
+The results from the profiling shows a consistent overall decrease execution time across
+different functions in the data ingestion process. This is indicative of a reduction of overhead
+and efficency improvement.
+
+##Comparison Before and After Optimization Of Prepare Base Model
+
+|Function      |Before Optimization     |After Opitimization    |Difference   |
+|--------------|------------------------|-----------------------|-------------|
+|get_base_model|1.48                    |0.529                  |-0.951       |
+|VGG16         |1.39                    |0.528                  |-0.862       |
+|get_file      |0.945                   |0.121                  |-0.824       |
+|validate_file |0.944                   |0.120                  |-0.824       |
+|_hash_file    |0.944                   |0.944                  |-0.120       |
+
+
+##Analysis of Results
+We were able to consistently decrease the excution time for prepare base model as well. We 
+implemeneted async functions.
+
+##Comparison Before and After Optimization Of Model Training
+
+|Function      |Before Optimization     |After Opitimization    |Difference   |
+|--------------|------------------------|-----------------------|-------------|
+|train         |38.1                    |32.7                   |-5.4         |
+|error_handler |38.6                    |33.2                   |-5.4         |
+|fit           |38.0                    |32.5                   |-5.5         |
+|evaluate      |6.74                    |6.21                   |-0.53        |
+|_call_        |35.8                    |30.5                   |-5.3         |
+
+
+##Analysis of Results
+We were able to consistently decrease the excution time for prepare mase model as well. We 
+implmeneted async functions.
+
+
+##Comparison Before and After Optimization Of Model Evaluation
+
+|Function       |Before Optimization     |After Opitimization    |Difference   |
+|---------------|------------------------|-----------------------|-------------|
+|log_into_mlflow|64.6                    |72.5                   |-0.951       |
+|log_model      |63.5                    |71.3                   |-0.862       |
+|log            |63.5                    |71.3                   |-0.824       |
+|log_artifacts  |60.2                    |60.2                   |-0.824       |
+|http_request   |61.9                    |60.2                   |-0.120       |
+
+##Analysis of Results
+For the final part we actually noticed an increase in performance time after optimizations. Therefore, we decided to keep the original code. 
+
+#TensorBoard Profiling
+##Overview
+We utilized Tensorflow Profiler instead of PyTorch Profiler because it was more compatiable with 
+our codebase. The Tensorboard is automatically started in the code for the user. The following are the results. Historgrams in Tensorboard visualize the distribution of weights, biases, and other tensors during trining of the neural network
+
+##Model 1 (Part 2)
+###Overfitting In Block 5
+![Alt Text](Block5Model1Part2.png)
+
+Analyzing the histograms provided by the tensorflow profiler provided us with invaluable information. We decided to start with the original model and work from there. The histograms 
+analyzed each block and convolution. Block4 showed more peaked distributions. This suggest either more focused learning or potential overfitting. During the final Block5 It shows the kernal histogram had a sharp peak and the bias histogram had little spread. So, once again we decided to adjust the learning rate.
+
+##Model 2 (Part 2)
+
+With the newly adjusted the model the earlier layers still show a broder distribution with the kernal
+histograms. However, once again in block5 the distribution is narrower and with sharper peaks. With 
+the bias histograms the earlier layers are around zero. This is expected. However, once again in the deeper layers the distributions become more peaked. This is indicatie of fine tuning to specific values. With these new tools we were able to pinpoint that we should try regularization techniques. As well as dropping the learning rate once more.
+
+##Model 3 (Part 2)
+We then decided to implemnt batch normalization to help with optimization. This helps with better training and potentially the reduction of overfitting. Utilizaing batch normalization
+drastically improved our models accuracy and loss. However, our model is still overfitting in block 5 according to the historgrams provided by tensorflow.
+
+###Model Accuracy (Part 2)
+| Name             | Accuracy | Loss  |  Learning Rate | Epochs |
+|------------------|----------|-------|---------------|--------|
+| Version 1_Part 2 | 0.547    | 15.02 |      0.01     | 1      |
+| Version 2_Part 2 | 0.871    | 0.575 |      0.001    | 1      |
+| Version 3_Part 2 | 0.928    | 0.393 |      0.001    | 1      |
+
+##Monitoring and Debugging
+
+
+##Dags Hub Repo and MLflow Links
+
+###MLFlow Reports
+##
+https://dagshub.com/eTroupe5201/GroupProjectSE489.mlflow/#/experiments/0?searchFilter=&orderByKey=attributes.start_time&orderByAsc=false&startTime=ALL&lifecycleFilter=Active&modelVersionFilter=All+Runs&datasetsFilter=W10%3D
+
+###Experiments
+The following is a link to the experiments for our project. It contains different graphs and reports from mlflow.
+https://dagshub.com/eTroupe5201/GroupProjectSE489/experiments/#/
+
+###Repo (mirrored from original repo)
+https://dagshub.com/eTroupe5201/GroupProjectSE489
+
+
 
 ###Appendix I: References 
 

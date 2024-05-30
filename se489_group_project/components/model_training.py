@@ -5,7 +5,9 @@ import tensorflow as tf
 import time
 from pathlib import Path
 from se489_group_project.model_classes.config_model_classes import ModelTrainingConfig
-
+import subprocess
+import webbrowser
+import time
 
 class Training:
     """
@@ -31,7 +33,7 @@ class Training:
         self.config = config
 
     
-    def get_base_model(self):
+    async def get_base_model(self):
         """
         Load the previousl trained base model from the saved path specified in the configuration.
         Sets `self.model` to the loaded model using the path in `self.config.updated_base_model_path`.
@@ -40,7 +42,7 @@ class Training:
             self.config.updated_base_model_path
         )
 
-    def train_valid_generator(self):
+    async def train_valid_generator(self):
         """
         Set up data generators for training and validation.
 
@@ -108,7 +110,7 @@ class Training:
 
 
     
-    def train(self):
+    async def train(self):
         """
         Trains the model utilizing training and validation data generators.
 
@@ -116,19 +118,43 @@ class Training:
         and then trains the model for the number of previously specified epochs.
 
         Saves the trained model to `self.config.trained_model_path`.
+        Profiles the training process using TensorBoard and TensorFlow Profiler.
+        Automatically opens the TensorBoard in the default web browser.
         """
+        logs = "se489_group_project/visualizations"
+        
+        subprocess.Popen(["tensorboard", "--logdir", logs, "--host", "0.0.0.0", "--port", "6006"])
+        time.sleep(5)
+        webbrowser.open("http://localhost:6006/")
+
         self.steps_per_epoch = self.train_generator.samples // self.train_generator.batch_size
         self.validation_steps = self.valid_generator.samples // self.valid_generator.batch_size
 
-        self.model.fit(
-            self.train_generator,
-            epochs=self.config.params_epochs,
-            steps_per_epoch=self.steps_per_epoch,
-            validation_steps=self.validation_steps,
-            validation_data=self.valid_generator
+        #TensorFlow Profiling 
+        tf.profiler.experimental.start(logs)
+
+         # Set up TensorBoard callback
+        tensorboard_callback = tf.keras.callbacks.TensorBoard(
+            log_dir=logs,
+            histogram_freq=1,
+            profile_batch='500,520'  # Profile batches 500 to 520
         )
+        try:
+            self.model.fit(
+                self.train_generator,
+                epochs=self.config.params_epochs,
+                steps_per_epoch=self.steps_per_epoch,
+                validation_steps=self.validation_steps,
+                validation_data=self.valid_generator,
+                callbacks=[tensorboard_callback]
+            )
+        finally:
+        
+            tf.profiler.experimental.stop()
 
         self.save_model(
             path=self.config.trained_model_path,
             model=self.model
         )
+        
+            
