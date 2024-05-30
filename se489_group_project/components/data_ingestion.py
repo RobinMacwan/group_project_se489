@@ -33,7 +33,7 @@ class DataIngestion:
         self.config = config
 
     
-    def download_file(self)-> str:
+    async def download_file(self)-> str:
         """
         Download zip file from URL to a local directory.
 
@@ -64,7 +64,7 @@ class DataIngestion:
         
     
 
-    def extract_zip_file(self):
+    async def extract_zip_file(self):
         """
         Extract the zip file into the data directory.
 
@@ -76,3 +76,5 @@ class DataIngestion:
         os.makedirs(unzip_path, exist_ok=True)
         with zipfile.ZipFile(self.config.local_data_file, 'r') as zip_ref:
             zip_ref.extractall(unzip_path)
+    
+    

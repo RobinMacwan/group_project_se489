@@ -5,13 +5,14 @@ import mlflow.keras
 from urllib.parse import urlparse
 from se489_group_project.model_classes.config_model_classes import ModelEvaluationConfig
 from se489_group_project.utility.common import read_yaml, create_directories,save_json
-
+# from prometheus_client import start_http_server, Summary, Gauge
+# import pdb #import for debugging
 
 class Evaluation:
     
     def __init__(self, config: ModelEvaluationConfig):
         """
-        Initialize the ModelEvaluator class with the configuration.
+        Initialize the ModelEvaluation class with the configuration.
 
         Parameters
         ----------
@@ -21,6 +22,14 @@ class Evaluation:
         """
 
         self.config = config
+
+        # # Initialize Prometheus metrics
+        # self.evaluation_time = Summary('evaluation_processing_seconds', 'Time spent evaluating the model')
+        # self.model_loss = Gauge('model_loss', 'Model evaluation loss')
+        # self.model_accuracy = Gauge('model_accuracy', 'Model evaluation accuracy')
+
+        # # Start Prometheus HTTP server
+        # start_http_server(8000)
     
     def _valid_generator(self):
         """
@@ -84,12 +93,13 @@ class Evaluation:
         to set up the validation data generator. After evaluating the model,
         scores are saved using `save_score`.
         """
-
+        #breakpoint for debugging
+        # pdb.set_trace()
         self.model = self.load_model(self.config.path_of_model)
         self._valid_generator()
         self.score = self.model.evaluate(self.valid_generator)
         self.save_score()
-    
+        self.log_into_mlflow()
         
     
     def save_score(self):

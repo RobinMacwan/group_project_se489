@@ -3,7 +3,7 @@ import os
 from flask_cors import CORS, cross_origin
 from se489_group_project.utility.common import decodeImage
 from se489_group_project.pipeline.pipeline_prediction import PredictionPipeline
-
+from se489_group_project import logger
 
 
 os.putenv('LANG', 'en_US.UTF-8')
@@ -30,6 +30,7 @@ def home():
 @app.route("/train", methods=['GET','POST'])
 @cross_origin()
 def trainRoute():
+    logger.info("running main.py")
     os.system("python main.py")
     # os.system("dvc repro")
     return "Training done successfully!"
@@ -47,5 +48,4 @@ def predictRoute():
 
 if __name__ == "__main__":
     clApp = ClientApp()
-
     app.run(host='0.0.0.0', port=8080) #for AWS

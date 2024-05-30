@@ -114,6 +114,12 @@ export MLFLOW_TRACKING_USERNAME=RobinMacwan
 
 export MLFLOW_TRACKING_PASSWORD= <available upon request>
 
+### LINK TO DAGSHUB EXPERIMENTS
+https://dagshub.com/eTroupe5201/GroupProjectSE489/experiments/#/
+
+### LINK TO MLFLOW REPORTS
+https://dagshub.com/eTroupe5201/GroupProjectSE489.mlflow/#/experiments/0?searchFilter=&orderByKey=attributes.start_time&orderByAsc=false&startTime=ALL&lifecycleFilter=Active&modelVersionFilter=All+Runs&datasetsFilter=W10%3D
+
 ```
 
 ### DVC cmd for looking up code dependancy 

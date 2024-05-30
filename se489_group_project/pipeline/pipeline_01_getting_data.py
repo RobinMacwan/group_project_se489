@@ -4,16 +4,32 @@ from se489_group_project import logger
 
 
 class GettingDataPipeline:
+    """
+    A class used to manage the data ingestion process.
+    """
     def __init__(self):
+        """
+        Initialization of the GettingDataPipeline class.
+        """
         pass
 
     def main(self):
-        config = ConfigurationManager()
-        getting_data_config = config.get_data_ingestion_config()
-        getting_data = DataIngestion(config=getting_data_config)
-        getting_data.download_file()
-        getting_data.extract_zip_file()
+        """ 
+        Main method to execute the data ingestion process.
+        This method is responsible for the configuration of the data ingestion process.
+        As well as downloading and extracting the data files.
+        """
 
+        config = ConfigurationManager()
+
+        #Get data ingestion configuration
+        getting_data_config = config.get_data_ingestion_config()
+        # Initialize DataIngestion with the retrieved configuration
+        getting_data = DataIngestion(config=getting_data_config)
+
+        getting_data.download_file()
+        # Profile the extract_zip_file method of DataIngestion
+        getting_data.extract_zip_file()
 
 if __name__ == '__main__':
     try:
