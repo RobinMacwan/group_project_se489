@@ -6,7 +6,7 @@ from se489_group_project.pipeline.pipeline_04_model_evaluation import Evaluation
 from se489_group_project.visualizations.visualize import start_profiler, stop_profiler, visualize_profile
 import asyncio
 
-async def main():
+def main():
     try:
         # Start profiler
         profiler = start_profiler()
@@ -62,7 +62,7 @@ async def main():
         logger.exception(e)
         raise e
 if __name__ == '__main__':
-    asyncio.run(main())
+    main()
     # profiler = start_profiler()
     # main()
     # profile_file = stop_profiler(profiler, "main")

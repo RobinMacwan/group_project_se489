@@ -35,8 +35,7 @@ class PrepareBaseModel:
         """
         self.config = config
 
-    
-    async def get_base_model(self):
+    def get_base_model(self):
         """
         Load the base VGG16 model with the specified parameters and save it to disk.
 
@@ -113,7 +112,7 @@ class PrepareBaseModel:
         return full_model
     
     
-    async def update_base_model(self):
+    def update_base_model(self):
         """
         Prepare and update the base model for further training.
 
