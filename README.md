@@ -162,7 +162,7 @@ To set up pre-commit hooks python has to be updated to ensure compatibility. Run
 ```bash
 conda install python=3.11.0
 ```
-Run requirments.txt to add pre-commit.
+Run requirments.txt to add pre-commit, black, isort, and interrogate.
 ```bash
 pip install -r requirements.txt
 ```
@@ -172,9 +172,31 @@ pre-commit install
 ```.
 This command installs pre-commit hooks. Pre-commit hooks will run automatically on every commit
 
+If you want to remove pre-commit hooks and disable automatic execution. Run the following command
+```bash
+pre-commit uninstall 
+```
+To clear the cache. Run the following command
+```bash
+pre-commit clean
 To run pre-commit hooks on all files in the repository manually.
 ```bash
 pre-commit run --all-files
+```
+
+To run black
+```bash
+black .
+```
+
+To run isort
+```bash
+isort .-v
+```
+
+To run interrogate
+```bash
+interrogate -v
 ```
 
 ### REFERENCES/Citation
