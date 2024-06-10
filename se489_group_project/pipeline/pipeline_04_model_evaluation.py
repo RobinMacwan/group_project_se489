@@ -1,8 +1,8 @@
-from se489_group_project.config.configuration import ConfigurationManager
-from se489_group_project.components.model_evalution_mlflow import Evaluation
+# -*- coding: utf-8 -*-
+"""This module is responsible for the evaluation stage of the pipeline. """
 from se489_group_project import logger
-
-
+from se489_group_project.components.model_evalution_mlflow import Evaluation
+from se489_group_project.config.configuration import ConfigurationManager
 
 STAGE_NAME = "Evaluation stage"
 
@@ -11,6 +11,7 @@ class EvaluationPipeline:
     """
     Class to run the evaluation stage of the pipeline
     """
+
     def __init__(self):
         """
         Initialization of the EvaluationPipeline class.
@@ -25,22 +26,20 @@ class EvaluationPipeline:
         the evaluation into mlflow.
         """
 
-        #Initialize the configuration manager
+        # Initialize the configuration manager
         config = ConfigurationManager()
-        #Get the evaluation configuration
+        # Get the evaluation configuration
         eval_config = config.get_evaluation_config()
-        #Initialize 
+        # Initialize
         evaluation = Evaluation(eval_config)
-        #Run the evaluation
+        # Run the evaluation
         evaluation.evaluation()
-        #Save the score
+        # Save the score
         evaluation.save_score()
         # evaluation.log_into_mlflow()
 
 
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     try:
         logger.info(f"Evaluation stage started")
         obj = EvaluationPipeline()
@@ -49,4 +48,3 @@ if __name__ == '__main__':
     except Exception as e:
         logger.exception(e)
         raise e
-            

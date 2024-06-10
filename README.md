@@ -4,27 +4,29 @@
 
 ## Project Description
 
-The project aims to develop a deep learning model using the [1] VGG16 architecture to detect kidney tumors in CT scans. The model will be trained on the [2] CT Kidney Dataset, which contains images of normal kidneys and kidneys with tumors. By leveraging the VGG16 model's ability to extract intricate features from images, the goal is to create a reliable tool for early detection of kidney tumors, aiding in timely medical interventions and improved patient outcomes. 
+The project aims to develop a deep learning model using the [1] VGG16 architecture to detect kidney tumors in CT scans. The model will be trained on the [2] CT Kidney Dataset, which contains images of normal kidneys and kidneys with tumors. By leveraging the VGG16 model's ability to extract intricate features from images, the goal is to create a reliable tool for early detection of kidney tumors, aiding in timely medical interventions and improved patient outcomes.
 
-### Below highlights the technology stack: 
+### Below highlights the technology stack:
 
-Cookiecutter template – file structure. 
+Cookiecutter template – file structure.
 
-GitHub – Version control. 
+GitHub – Version control.
 
-DVC – data version control. 
+DVC – data version control.
 
-MLflow – compare trained models 
+MLflow – compare trained models
 
-Docker – load models into containers 
+Docker – load models into containers
 
-AWS – host models inside of a web interface 
+AWS – host models inside of a web interface
 
-Keras – User-friendly deep learning model development 
+Keras – User-friendly deep learning model development
 
-Jupyter Notebook – Interactive development and experimentation 
+Jupyter Notebook – Interactive development and experimentation
 
-TensorFlow –Loading/Training models, Data preprocessing, Data Generator Creation 
+TensorFlow –Loading/Training models, Data preprocessing, Data Generator Creation
+
+Pre-Commit - Runs automated code quality checks before each commit.
 
 ## Project structure
 
@@ -92,7 +94,7 @@ conda create -n grp_env python=3.8 -y
 ```
 
 ```bash
-conda activate 
+conda activate
 ```
 
 ```bash
@@ -146,14 +148,34 @@ https://dagshub.com/eTroupe5201/GroupProjectSE489.mlflow/#/experiments/0?searchF
 
 ```
 
-### DVC cmd for looking up code dependancy 
+### DVC cmd for looking up code dependancy
 
 1. dvc init
 2. dvc dag
 
-- for example 
+- for example
 
 ![Dependancy diagram](image.png)
+
+## Setting Up Pre-Commit Hooks
+To set up pre-commit hooks python has to be updated to ensure compatibility. Run the following command to update python.
+```bash
+conda install python=3.11.0
+```
+Run requirments.txt to add pre-commit.
+```bash
+pip install -r requirements.txt
+```
+After running requirements.txt run the following command in the root directory.
+```bash
+pre-commit install
+```.
+This command installs pre-commit hooks. Pre-commit hooks will run automatically on every commit
+
+To run pre-commit hooks on all files in the repository manually.
+```bash
+pre-commit run --all-files
+```
 
 ### REFERENCES/Citation
 
@@ -163,9 +185,4 @@ https://dagshub.com/eTroupe5201/GroupProjectSE489.mlflow/#/experiments/0?searchF
 
 #[3] Code help: https://github.com/malleswarigelli/Chest_Disease_Image_Classification_
 
-#[4] app.py/index.html: we use generic bootstrap ui 
-
-
-
-
-
+#[4] app.py/index.html: we use generic bootstrap ui

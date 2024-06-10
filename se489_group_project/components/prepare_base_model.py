@@ -1,8 +1,11 @@
+# -*- coding: utf-8 -*-
 import os
 import urllib.request as request
-from zipfile import ZipFile
-import tensorflow as tf
 from pathlib import Path
+from zipfile import ZipFile
+
+import tensorflow as tf
+
 from se489_group_project.model_classes.config_model_classes import CreateBaseModelConfig
 
 
@@ -24,6 +27,7 @@ class PrepareBaseModel:
     save_model(path, model):
         Saves the given model to disk at the specified path.
     """
+
     def __init__(self, config: CreateBaseModelConfig):
         """
         Initialize PrepareBaseModel with the given configuration.
@@ -47,12 +51,10 @@ class PrepareBaseModel:
         self.model = tf.keras.applications.vgg16.VGG16(
             input_shape=self.config.params_image_size,
             weights=self.config.params_weights,
-            include_top=self.config.params_include_top
+            include_top=self.config.params_include_top,
         )
 
         self.save_model(path=self.config.base_model_path, model=self.model)
-
-    
 
     @staticmethod
     def _prepare_full_model(model, classes, freeze_all, freeze_till, learning_rate):
@@ -92,26 +94,19 @@ class PrepareBaseModel:
 
         flatten_in = tf.keras.layers.Flatten()(model.output)
         batch_norm = tf.keras.layers.BatchNormalization()(flatten_in)
-        prediction = tf.keras.layers.Dense(
-            units=classes,
-            activation="softmax"
-        )(batch_norm)
+        prediction = tf.keras.layers.Dense(units=classes, activation="softmax")(batch_norm)
 
-        full_model = tf.keras.models.Model(
-            inputs=model.input,
-            outputs=prediction
-        )
+        full_model = tf.keras.models.Model(inputs=model.input, outputs=prediction)
 
         full_model.compile(
             optimizer=tf.keras.optimizers.SGD(learning_rate=learning_rate),
             loss=tf.keras.losses.CategoricalCrossentropy(),
-            metrics=["accuracy"]
+            metrics=["accuracy"],
         )
 
         full_model.summary()
         return full_model
-    
-    
+
     def update_base_model(self):
         """
         Prepare and update the base model for further training.
@@ -126,13 +121,11 @@ class PrepareBaseModel:
             classes=self.config.params_classes,
             freeze_all=True,
             freeze_till=None,
-            learning_rate=self.config.params_learning_rate
+            learning_rate=self.config.params_learning_rate,
         )
 
         self.save_model(path=self.config.updated_base_model_path, model=self.full_model)
 
-    
-        
     @staticmethod
     def save_model(path: Path, model: tf.keras.Model):
         """
