@@ -1,14 +1,20 @@
+# -*- coding: utf-8 -*-
+"""
+This module is responsible for profiling the code and visualizing the profile data.
+"""
 import cProfile
+import os
 import pstats
 import subprocess
-import os
-from se489_group_project import logger
 from pathlib import Path
+
+from se489_group_project import logger
 
 # Configure paths
 BASE_DIR = Path(__file__).resolve().parent
 PROFILE_DIR = "se489_group_project/visualizations/profiles"
 VISUALIZATION_DIR = "se489_group_project/visualizations/outputs"
+
 
 def start_profiler():
     """
@@ -18,6 +24,7 @@ def start_profiler():
     profiler = cProfile.Profile()
     profiler.enable()
     return profiler
+
 
 def stop_profiler(profiler, filename):
     """
@@ -41,9 +48,10 @@ def stop_profiler(profiler, filename):
     profiler.disable()
     os.makedirs(PROFILE_DIR, exist_ok=True)
     profile_file = os.path.join(PROFILE_DIR, f"{filename}.prof")
-    #save the profile data to file
+    # save the profile data to file
     profiler.dump_stats(profile_file)
     return profile_file
+
 
 def visualize_profile(profile_file):
     """
@@ -53,7 +61,7 @@ def visualize_profile(profile_file):
     -----------
     profile_file : str
         The path to the profile data file.
-    
+
     """
     try:
         subprocess.Popen(["snakeviz", profile_file])

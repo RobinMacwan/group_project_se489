@@ -1,9 +1,14 @@
+# -*- coding: utf-8 -*-
 from dataclasses import dataclass
 from pathlib import Path
 
 
 @dataclass(frozen=True)
 class GettingDataConfig:
+    """
+    A class used to store the configuration for the data ingestion process.
+    """
+
     local_data_file: Path
     root_dir: Path
     unzip_dir: Path
@@ -12,6 +17,10 @@ class GettingDataConfig:
 
 @dataclass(frozen=True)
 class CreateBaseModelConfig:
+    """
+    A class used to store the configuration for the base model creation process.
+    """
+
     params_include_top: bool
     root_dir: Path
     updated_base_model_path: Path
@@ -22,9 +31,12 @@ class CreateBaseModelConfig:
     params_weights: str
 
 
-
 @dataclass(frozen=True)
 class ModelTrainingConfig:
+    """
+    A class used to store the configuration for the model training process.
+    """
+
     params_batch_size: int
     root_dir: Path
     params_image_size: list
@@ -37,6 +49,10 @@ class ModelTrainingConfig:
 
 @dataclass(frozen=True)
 class ModelEvaluationConfig:
+    """
+    A class used to store the configuration for the model evaluation process.
+    """
+
     mlflow_uri: str
     path_of_model: Path
     all_params: dict

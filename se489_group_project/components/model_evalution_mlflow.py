@@ -1,15 +1,41 @@
-import tensorflow as tf
+# -*- coding: utf-8 -*-
 from pathlib import Path
+from urllib.parse import urlparse
+
 import mlflow
 import mlflow.keras
-from urllib.parse import urlparse
+import tensorflow as tf
+
 from se489_group_project.model_classes.config_model_classes import ModelEvaluationConfig
-from se489_group_project.utility.common import read_yaml, create_directories,save_json
+from se489_group_project.utility.common import create_directories, read_yaml, save_json
+
 # from prometheus_client import start_http_server, Summary, Gauge
 # import pdb #import for debugging
 
+
 class Evaluation:
-    
+    """
+    A class used to evaluate the pre-trained model.
+
+    Attributes
+    ----------
+    config : ModelEvaluationConfig
+        Configuration object with parameters to be used in the evaluation process.
+
+    Methods
+    -------
+    _valid_generator()
+        Sets up the validation data generator.
+    load_model(path: Path) -> tf.keras.Model
+        Loads and returns the pre-trained Keras model.
+    evaluation()
+        Loads the model, evaluates it using the validation data generator, and saves the score.
+    save_score()
+        Saves the evaluation scores (loss and accuracy) to a JSON file.
+    log_into_mlflow()
+        Logs evaluation parameters and metrics into MLflow for tracking.
+    """
+
     def __init__(self, config: ModelEvaluationConfig):
         """
         Initialize the ModelEvaluation class with the configuration.
@@ -30,7 +56,7 @@ class Evaluation:
 
         # # Start Prometheus HTTP server
         # start_http_server(8000)
-    
+
     def _valid_generator(self):
         """
         Set up a validation data generator using TensorFlow's ImageDataGenerator.
@@ -42,28 +68,22 @@ class Evaluation:
         """
 
         # Keyword arguments for the image data generator
-        datagenerator_kwargs = dict(
-            rescale = 1./255,
-            validation_split=0.30
-        )
+        datagenerator_kwargs = dict(rescale=1.0 / 255, validation_split=0.30)
 
         dataflow_kwargs = dict(
             target_size=self.config.params_image_size[:-1],
             batch_size=self.config.params_batch_size,
-            interpolation="bilinear"
+            interpolation="bilinear",
         )
 
-        valid_datagenerator = tf.keras.preprocessing.image.ImageDataGenerator(
-            **datagenerator_kwargs
-        )
+        valid_datagenerator = tf.keras.preprocessing.image.ImageDataGenerator(**datagenerator_kwargs)
 
         self.valid_generator = valid_datagenerator.flow_from_directory(
             directory=self.config.training_data,
             subset="validation",
             shuffle=False,
-            **dataflow_kwargs
+            **dataflow_kwargs,
         )
-
 
     @staticmethod
     def load_model(path: Path) -> tf.keras.Model:
@@ -74,17 +94,15 @@ class Evaluation:
         ----------
         path : Path
             Path to the saved model file.
-        
+
         Returns
         -------
         tf.keras.Model
             The loaded Keras model.
-            
+
         """
         return tf.keras.models.load_model(path)
-    
 
-    
     def evaluation(self):
         """
         Load the model, evaluate it using the validation data generator, and save the score.
@@ -93,15 +111,14 @@ class Evaluation:
         to set up the validation data generator. After evaluating the model,
         scores are saved using `save_score`.
         """
-        #breakpoint for debugging
+        # breakpoint for debugging
         # pdb.set_trace()
         self.model = self.load_model(self.config.path_of_model)
         self._valid_generator()
         self.score = self.model.evaluate(self.valid_generator)
         self.save_score()
         self.log_into_mlflow()
-        
-    
+
     def save_score(self):
         """
         Save the evaluation scores ,loss and accuracy, to a JSON file.
@@ -112,9 +129,6 @@ class Evaluation:
         scores = {"loss": self.score[0], "accuracy": self.score[1]}
         save_json(path=Path("scores.json"), data=scores)
 
-
-    
-    
     def log_into_mlflow(self):
         """
         Log evaluation parameters and metrics into MLflow for tracking.
@@ -124,12 +138,10 @@ class Evaluation:
         """
         mlflow.set_registry_uri(self.config.mlflow_uri)
         tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
-        
+
         with mlflow.start_run():
             mlflow.log_params(self.config.all_params)
-            mlflow.log_metrics(
-                {"loss": self.score[0], "accuracy": self.score[1]}
-            )
+            mlflow.log_metrics({"loss": self.score[0], "accuracy": self.score[1]})
             # Model registry does not work with file store
             if tracking_url_type_store != "file":
 
