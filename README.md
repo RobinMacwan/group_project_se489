@@ -174,7 +174,7 @@ This command installs pre-commit hooks. Pre-commit hooks will run automatically 
 
 If you want to remove pre-commit hooks and disable automatic execution. Run the following command
 ```bash
-pre-commit uninstall 
+pre-commit uninstall
 ```
 To clear the cache. Run the following command
 ```bash
