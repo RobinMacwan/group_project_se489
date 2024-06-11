@@ -97,7 +97,7 @@ def test_downloaded_file(data_ingestion):
     kidney_ct_scan_image = os.path.join(unzipped, "kidney-ct-scan-image")
     assert os.path.exists(kidney_ct_scan_image), "Extraction failed: 'ct-scan' directory does not exist."
 
-    expected_directories = ["tumor", "normal"]  # Expected directories within 'ct-scan'
+    expected_directories = ["Tumor", "Normal"]  # Expected directories within 'ct-scan'
     for expected_directory in expected_directories:
         image_directory = os.path.join(kidney_ct_scan_image, expected_directory)
         assert os.path.exists(image_directory), f"Missing expected directory: {expected_directory}"
