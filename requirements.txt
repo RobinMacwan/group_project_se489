@@ -1,11 +1,11 @@
-black==24.4.0
+# black==24.4.0
 coverage
 dvc
 ensure==1.0.2
 Flask
 Flask-Cors
 gdown
-interrogate==1.7.0
+# interrogate==1.7.0
 isort==5.9.3
 joblib
 matplotlib
@@ -20,6 +20,10 @@ pyYAML
 scipy
 seaborn
 snakeviz
-tensorflow==2.12.0
+tensorflow ==2.12.0 
+torch
+torch-tb-profiler
+torchaudio
+torchvision
 tqdm
 types-PyYAML
