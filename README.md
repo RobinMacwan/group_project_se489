@@ -158,11 +158,8 @@ https://dagshub.com/eTroupe5201/GroupProjectSE489.mlflow/#/experiments/0?searchF
 ![Dependancy diagram](image.png)
 
 ## Setting Up Pre-Commit Hooks
-To set up pre-commit hooks python has to be updated to ensure compatibility. Run the following command to update python.
-```bash
-conda install python=3.11.0
-```
-Run requirments.txt to add pre-commit, black, isort, and interrogate.
+WORKING ON 
+<!-- 
 ```bash
 pip install -r requirements.txt
 ```
@@ -182,7 +179,7 @@ pre-commit clean
 To run pre-commit hooks on all files in the repository manually.
 ```bash
 pre-commit run --all-files
-```
+``` -->
 
 To run black
 ```bash
