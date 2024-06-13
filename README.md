@@ -158,8 +158,8 @@ https://dagshub.com/eTroupe5201/GroupProjectSE489.mlflow/#/experiments/0?searchF
 ![Dependancy diagram](image.png)
 
 ## Setting Up Pre-Commit Hooks
-WORKING ON 
-<!-- 
+Run as Adminstrator in Anaconda.Navigator to ensure proper installation. Detailed instruction in .md file.
+
 ```bash
 pip install -r requirements.txt
 ```
@@ -179,7 +179,8 @@ pre-commit clean
 To run pre-commit hooks on all files in the repository manually.
 ```bash
 pre-commit run --all-files
-``` -->
+```
+
 
 To run black
 ```bash
