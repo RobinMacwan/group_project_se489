@@ -3,68 +3,7 @@
  Temporary directories are created for the tests to ensure that the tests are isolated from the rest of the system.
  The tests check that the data is downloaded correctly and that the file exists and is not empty."""
 import os
-import sys
-import tempfile
-
-# tests/test_placeholder.py
 import pytest
-
-# Ensure the project root directory is in the Python path, fixes import issues.
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from se489_group_project.components.data_ingestion import DataIngestion
-from se489_group_project.model_classes.config_model_classes import GettingDataConfig
-
-
-@pytest.fixture
-def temp_dir():
-    """
-    Fixture for creating a temporary directory for the duration of the test.
-    """
-    with tempfile.TemporaryDirectory() as temporary_directory:
-        yield temporary_directory
-
-
-@pytest.fixture
-def data_ingestion_config(temp_dir):
-    """
-    Fixture for providing a configuration object for data ingestion.
-
-    Parameters
-    ----------
-    temp_dir : str
-        Temporary directory path.
-
-    Returns
-    -------
-    DataIngestion
-        DataIngestion object with the provided configuration.
-
-    """
-    return GettingDataConfig(
-        source_URL="https://drive.google.com/file/d/1gesLApompvvnzz-AWyWM4ikmk7BOGWAp/view?usp=sharing",  # Corrected URL format
-        local_data_file=os.path.join(temp_dir, "data.zip"),
-        unzip_dir=os.path.join(temp_dir, "kidney-ct-scan-image"),
-        root_dir=temp_dir,
-    )
-
-
-@pytest.fixture
-def data_ingestion(data_ingestion_config):
-    """
-    Fixture for providing a DataIngestion object with the provided configuration.
-
-     Parameters
-     ----------
-     data_ingestion_config : GettingDataConfig
-         Configuration object for data ingestion.
-
-     Returns
-     -------
-     DataIngestion
-         DataIngestion object with the provided configuration.
-    """
-    return DataIngestion(data_ingestion_config)
-
 
 def test_downloaded_file(data_ingestion):
     """Test for the download_file and extract_zip_file methods of the DataIngestion class.
