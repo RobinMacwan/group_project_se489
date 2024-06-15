@@ -25,7 +25,6 @@ jobs:
           pip install ruff mypy
           pip install types-setuptools
           pip install types-tensorflow
-          pip install types-gdown
           pip install types-joblib
           pip install types-mlflow
 
