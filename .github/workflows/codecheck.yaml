@@ -23,6 +23,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install ruff mypy
+          pip install types-setuptools
+          pip install types-tensorflow
+          pip install types-gdown
+          pip install types-joblib
+          pip install types-mlflow
+
 
       - name: Run ruff check and fix errors
         run: |
