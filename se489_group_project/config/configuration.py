@@ -2,7 +2,7 @@
 import os
 from pathlib import Path
 
-from se489_group_project.constants import CONFIG_FILE_PATH, PARAMS_FILE_PATH
+from se489_group_project.constants import *
 from se489_group_project.model_classes.config_model_classes import (
     CreateBaseModelConfig,
     GettingDataConfig,
@@ -107,8 +107,8 @@ class ConfigurationManager:
         """
 
         eval_config = ModelEvaluationConfig(
-            path_of_model="data/training/model.h5",
-            training_data="data/raw/kidney-ct-scan-image",
+            path_of_model=Path("data/training/model.h5"),
+            training_data=Path("data/raw/kidney-ct-scan-image"),
             mlflow_uri="https://dagshub.com/RobinMacwan/group_project_se489.mlflow",
             all_params=self.params,
             params_image_size=self.params.IMAGE_SIZE,
