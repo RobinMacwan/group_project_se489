@@ -40,10 +40,10 @@ if __name__ == "__main__":
     The main method to run the data ingestion stage of the pipeline.
     """
     try:
-        logger.info(f"Data Ingestion stage started")
+        logger.info("Data Ingestion stage started")
         obj = GettingDataPipeline()
         obj.main()
-        logger.info(f"Data Ingestion stage completed\n\n")
+        logger.info("Data Ingestion stage completed\n\n")
     except Exception as e:
         logger.exception(e)
         raise e

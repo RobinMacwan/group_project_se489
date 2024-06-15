@@ -41,10 +41,10 @@ class EvaluationPipeline:
 
 if __name__ == "__main__":
     try:
-        logger.info(f"Evaluation stage started")
+        logger.info("Evaluation stage started")
         obj = EvaluationPipeline()
         obj.main()
-        logger.info(f"Evaluation stage completed\n\n")
+        logger.info("Evaluation stage completed\n\n")
     except Exception as e:
         logger.exception(e)
         raise e

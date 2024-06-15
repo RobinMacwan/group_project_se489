@@ -4,11 +4,8 @@ This module is responsible for profiling the code and visualizing the profile da
 """
 import cProfile
 import os
-import pstats
 import subprocess
 from pathlib import Path
-
-from se489_group_project import logger
 
 # Configure paths
 BASE_DIR = Path(__file__).resolve().parent

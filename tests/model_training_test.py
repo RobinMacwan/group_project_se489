@@ -1,12 +1,12 @@
-from pathlib import Path
-import pytest
-import tensorflow as tf
-import pytest
+# -*- coding: utf-8 -*-
+"""Module for testing the model training functionality. Utilizes pytest fixtures to set up the necessary objects for testing in the conftest file."""
 import os
+
+import tensorflow as tf
 
 
 def test_get_base_model(training, prepare_base_model):
-    #First, prepare the base model
+    # First, prepare the base model
     prepare_base_model.get_base_model()
     prepare_base_model.update_base_model()
 
@@ -16,27 +16,39 @@ def test_get_base_model(training, prepare_base_model):
     # Assert that the model is loaded correctly
     assert training.model is not None
 
-def test_train_valid_generator(training, data_ingestion):
-    # Perform data ingestion to set up the training data
-    data_ingestion.download_file()
-    data_ingestion.extract_zip_file()
-    
+
+def test_train_valid_generator(training):
+
     # Call the method
     training.train_valid_generator()
 
-    # Print out some details about the generators for debugging
-    print(f"Training data shape: {training.train_generator.image_shape}")
-    print(f"Validation data shape: {training.valid_generator.image_shape}")
-    
     # Assert that the generators are created correctly
     assert training.train_generator is not None
     assert training.valid_generator is not None
-    
-# def test_train(training, prepare_base_model, data_ingestion):
-#Working on this test
 
 
-# def test_save_model(training, prepare_base_model, temp_dir):
-#Working on this test
+def test_train(training, prepare_base_model):
 
-# # Additional tests can be added for the train method and other functionality
+    # First, prepare the base model
+    prepare_base_model.get_base_model()
+    prepare_base_model.update_base_model()
+    training.get_base_model()
+
+    training.train_valid_generator()
+    assert training.train_generator is not None
+    assert training.valid_generator is not None
+    assert training.train_generator.samples > 1
+    assert training.valid_generator.samples > 1
+    assert len(training.train_generator.class_indices) > 0
+    assert len(training.valid_generator.class_indices) > 0
+
+    training.train()
+
+    # Assertions to verify the process
+    assert training.model is not None
+    assert os.path.exists(training.config.trained_model_path)
+    assert isinstance(training.model, tf.keras.Model)
+
+
+# For debugging purposes, print all output to the console
+# pytest -s tests/model_training_test.py

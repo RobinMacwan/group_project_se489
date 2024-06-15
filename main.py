@@ -3,7 +3,6 @@
 This module contains the main function to run the entire pipeline.
 """
 
-import asyncio
 
 from se489_group_project import logger
 from se489_group_project.pipeline.pipeline_01_getting_data import GettingDataPipeline

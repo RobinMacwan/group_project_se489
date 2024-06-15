@@ -42,10 +42,10 @@ if __name__ == "__main__":
     The main method to run the training stage of the pipeline.
     """
     try:
-        logger.info(f"Training stage started")
+        logger.info("Training stage started")
         obj = ModelTrainingPipeline()
         obj.main()
-        logger.info(f"Training stage completed\n\n")
+        logger.info("Training stage completed\n\n")
     except Exception as e:
         logger.exception(e)
         raise e

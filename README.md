@@ -103,13 +103,14 @@ pip install -r requirements.txt
 
 ```bash
 # run following command
-python app.py or python main.py
+uvicorn app:app --reload --port 8080
 ```
 
 Now,
 ```bash
 open localhost and port(8080) / http://127.0.0.1:8080
 ```
+To trigger training visit http://127.0.0.1:8080/train
 
 ##### cmd (to check your model on mlflow ui without logging to dagshub/mlflow remote)
 - cd se489_group_project
@@ -158,7 +159,9 @@ https://dagshub.com/eTroupe5201/GroupProjectSE489.mlflow/#/experiments/0?searchF
 ![Dependancy diagram](image.png)
 
 ## Setting Up Pre-Commit Hooks
-Run as Adminstrator in Anaconda.Navigator to ensure proper installation. Detailed instruction in .md file.
+
+Run as Adminstrator in Anaconda.Navigator to ensure proper installation.
+Detailed instruction in .md file.
 
 ```bash
 pip install -r requirements.txt
@@ -196,6 +199,13 @@ To run interrogate
 ```bash
 interrogate -v
 ```
+## Setting Up Ruff
+```bash
+pip install -r requirements.txt
+```
+After running requirements.txt run the following command in the root directory.
+```bash
+ruff .
 
 ### REFERENCES/Citation
 
