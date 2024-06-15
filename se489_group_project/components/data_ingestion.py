@@ -6,7 +6,6 @@ import gdown
 
 from se489_group_project import logger
 from se489_group_project.model_classes.config_model_classes import GettingDataConfig
-from se489_group_project.utility.common import get_size
 
 
 class DataIngestion:

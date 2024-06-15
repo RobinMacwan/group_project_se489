@@ -2,6 +2,7 @@ black==24.4.0
 coverage
 dvc
 ensure==1.0.2
+fastapi == 0.111.0
 Flask
 Flask-Cors
 gdown
@@ -17,9 +18,11 @@ pre-commit
 pytest
 python-box==6.0.2
 pyYAML
+ruff
 scipy
 seaborn
 snakeviz
+tensorboard
 tensorflow ==2.12.0
 torch
 torch-tb-profiler
@@ -27,3 +30,4 @@ torchaudio
 torchvision
 tqdm
 types-PyYAML
+uvicorn[standard] == 0.30.1

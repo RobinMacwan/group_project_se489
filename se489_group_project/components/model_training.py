@@ -1,27 +1,26 @@
 # -*- coding: utf-8 -*-
-import os
 import subprocess
 import time
-import urllib.request as request
 import webbrowser
 from pathlib import Path
-from zipfile import ZipFile
 
-import mlflow
-import mlflow.keras
 import tensorflow as tf
-from sklearn.metrics import (
-    accuracy_score,
-    balanced_accuracy_score,
-    f1_score,
-    log_loss,
-    matthews_corrcoef,
-    precision_score,
-    recall_score,
-    roc_auc_score,
-)
 
 from se489_group_project.model_classes.config_model_classes import ModelTrainingConfig
+
+# import mlflow
+# import mlflow.keras
+# import tensorflow as tf
+# from sklearn.metrics import (
+#     accuracy_score,
+#     balanced_accuracy_score,
+#     f1_score,
+#     log_loss,
+#     matthews_corrcoef,
+#     precision_score,
+#     recall_score,
+#     roc_auc_score,
+# )
 
 
 class Training:
@@ -152,25 +151,25 @@ class Training:
                 validation_data=self.valid_generator,
                 callbacks=[tensorboard_callback],
             )
-            # Predict on validation data
-            y_true = self.valid_generator.classes
-            y_pred = self.model.predict(self.valid_generator)
-            y_pred_classes = tf.argmax(y_pred, axis=1).numpy()
+        # Predict on validation data
+        # y_true = self.valid_generator.classes
+        # y_pred = self.model.predict(self.valid_generator)
+        # y_pred_classes = tf.argmax(y_pred, axis=1).numpy()
 
-            # Calculate and log metrics
-            metrics = {
-                "f1_score": f1_score(y_true, y_pred_classes, average="weighted"),
-                "precision_score": precision_score(y_true, y_pred_classes, average="weighted"),
-                "recall_score": recall_score(y_true, y_pred_classes, average="weighted"),
-                "accuracy": accuracy_score(y_true, y_pred_classes),
-                "roc_auc_score": roc_auc_score(y_true, y_pred_classes, multi_class="ovr"),
-                "log_loss": log_loss(y_true, y_pred_classes),
-                "balanced_accuracy": balanced_accuracy_score(y_true, y_pred_classes),
-                "matthews_corrcoef": matthews_corrcoef(y_true, y_pred_classes),
-            }
-
-            for metric_name, metric_value in metrics.items():
-                mlflow.log_metric(metric_name, metric_value)
+        # Calculate and log metrics
+        # metrics = {
+        #     "f1_score": f1_score(y_true, y_pred_classes, average="weighted"),
+        #     "precision_score": precision_score(y_true, y_pred_classes, average="weighted"),
+        #     "recall_score": recall_score(y_true, y_pred_classes, average="weighted"),
+        #     "accuracy": accuracy_score(y_true, y_pred_classes),
+        #     "roc_auc_score": roc_auc_score(y_true, y_pred_classes, multi_class="ovr"),
+        #     "log_loss": log_loss(y_true, y_pred_classes),
+        #     "balanced_accuracy": balanced_accuracy_score(y_true, y_pred_classes),
+        #     "matthews_corrcoef": matthews_corrcoef(y_true, y_pred_classes),
+        # }
+        # mlflow.end_run()
+        # for metric_name, metric_value in metrics.items():
+        #     mlflow.log_metric(metric_name, metric_value)
         finally:
 
             tf.profiler.experimental.stop()

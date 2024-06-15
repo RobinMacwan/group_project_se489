@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-import os
-import urllib.request as request
 from pathlib import Path
-from zipfile import ZipFile
 
 import tensorflow as tf
 

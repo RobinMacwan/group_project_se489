@@ -2,7 +2,7 @@
 """
 This module contains the configuration for the visualization process.
 """
-import os
+
 from pathlib import Path
 
 # Configure paths

@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 import os
+from pathlib import Path
 
-from se489_group_project.constants import *
+from se489_group_project.constants import CONFIG_FILE_PATH, PARAMS_FILE_PATH
 from se489_group_project.model_classes.config_model_classes import (
     CreateBaseModelConfig,
     GettingDataConfig,
     ModelEvaluationConfig,
     ModelTrainingConfig,
 )
-from se489_group_project.utility.common import create_directories, read_yaml, save_json
+from se489_group_project.utility.common import create_directories, read_yaml
 
 
 class ConfigurationManager:

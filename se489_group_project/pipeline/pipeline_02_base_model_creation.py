@@ -42,13 +42,13 @@ if __name__ == "__main__":
 
     """
     try:
-        logger.info(f"Prepare base model stage started")
+        logger.info("Prepare base model stage started")
 
         # Create an instance of PrepareBaseModelTrainingPipeline
         obj = PrepareBaseModelTrainingPipeline()
         # execute the main method
         obj.main()
-        logger.info(f"Prepare base model stage completed\n\n")
+        logger.info("Prepare base model stage completed\n\n")
     except Exception as e:
         logger.exception(e)
         raise e

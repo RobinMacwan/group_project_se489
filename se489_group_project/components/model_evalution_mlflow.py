@@ -7,7 +7,7 @@ import mlflow.keras
 import tensorflow as tf
 
 from se489_group_project.model_classes.config_model_classes import ModelEvaluationConfig
-from se489_group_project.utility.common import create_directories, read_yaml, save_json
+from se489_group_project.utility.common import save_json
 
 # from prometheus_client import start_http_server, Summary, Gauge
 # import pdb #import for debugging
@@ -139,16 +139,17 @@ class Evaluation:
         mlflow.set_registry_uri(self.config.mlflow_uri)
         tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
 
-        with mlflow.start_run():
-            mlflow.log_params(self.config.all_params)
-            mlflow.log_metrics({"loss": self.score[0], "accuracy": self.score[1]})
-            # Model registry does not work with file store
-            if tracking_url_type_store != "file":
+        mlflow.log_params(self.config.all_params)
+        mlflow.log_metrics({"loss": self.score[0], "accuracy": self.score[1]})
+        # Model registry does not work with file store
+        if tracking_url_type_store != "file":
 
-                # Register the model
-                # There are other ways to use the Model Registry, which depends on the use case,
-                # please refer to the doc for more information:
-                # https://mlflow.org/docs/latest/model-registry.html#api-workflow
-                mlflow.keras.log_model(self.model, "model", registered_model_name="VGG16Model")
-            else:
-                mlflow.keras.log_model(self.model, "model")
+            # Register the model
+            # There are other ways to use the Model Registry, which depends on the use case,
+            # please refer to the doc for more information:
+            # https://mlflow.org/docs/latest/model-registry.html#api-workflow
+            mlflow.keras.log_model(self.model, "model", registered_model_name="VGG16Model")
+            mlflow.end_run()
+        else:
+            mlflow.keras.log_model(self.model, "model")
+            mlflow.end_run()

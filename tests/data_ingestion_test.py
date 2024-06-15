@@ -3,16 +3,14 @@
  Temporary directories are created for the tests to ensure that the tests are isolated from the rest of the system.
  The tests check that the data is downloaded correctly and that the file exists and is not empty."""
 import os
-import pytest
 
-def test_downloaded_file(data_ingestion):
+
+def test_downloaded_file(downloaded_files):
     """Test for the download_file and extract_zip_file methods of the DataIngestion class.
     Ensure that the file is downloaded and unzipped correctly.
     """
-    # Call the download_file method
-    data_ingestion.download_file()
-    dataset = data_ingestion.config.local_data_file
-    unzipped = data_ingestion.config.unzip_dir
+    dataset = downloaded_files.config.local_data_file
+    unzipped = downloaded_files.config.unzip_dir
 
     # Assert that the file exists
     assert os.path.exists(dataset), "Download failed: file does not exist."
@@ -23,16 +21,13 @@ def test_downloaded_file(data_ingestion):
     # Assert that the file name ends with .zip
     assert dataset.endswith(".zip"), "Download failed: file is not a zip file."
 
-    # Call the extract_zip_file method to extract the downloaded file
-    data_ingestion.extract_zip_file()
-
     # Assert that the extraction directory exists
     assert os.path.exists(unzipped), "Extraction failed: directory does not exist."
 
     # Assert that the extraction directory is not empty
     assert len(os.listdir(unzipped)) > 0, "Extraction failed: directory is empty."
 
-    # Additional checks for expected directories within 'ct-scan'
+    # Additional checks for expected directories within 'kidney-ct-scan-image'
     kidney_ct_scan_image = os.path.join(unzipped, "kidney-ct-scan-image")
     assert os.path.exists(kidney_ct_scan_image), "Extraction failed: 'ct-scan' directory does not exist."
 
