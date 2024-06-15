@@ -2,9 +2,9 @@ name: Code Quality Check
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
-    branches: [master]
+    branches: [main]
 
 jobs:
   codecheck:
@@ -27,9 +27,9 @@ jobs:
         run: |
           ruff check .
 
-      - name: Run ruff format
+      - name: Run ruff fix
         run: |
-          ruff format .
+          ruff fix .
 
       - name: Run mypy
         run: |
