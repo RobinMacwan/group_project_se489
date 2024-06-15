@@ -23,13 +23,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install ruff mypy
 
-      - name: Run ruff check
+      - name: Run ruff check and fix errors
         run: |
-          ruff check .
-
-      - name: Run ruff fix
-        run: |
-          ruff fix .
+          ruff check --fix .
 
       - name: Run mypy
         run: |
