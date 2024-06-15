@@ -2,7 +2,7 @@
 import os
 from pathlib import Path
 
-from se489_group_project.constants import *
+from se489_group_project.constants import * 
 from se489_group_project.model_classes.config_model_classes import (
     CreateBaseModelConfig,
     GettingDataConfig,
