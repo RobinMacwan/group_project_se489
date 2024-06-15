@@ -352,7 +352,16 @@ drastically improved our models accuracy and loss. However, our model is still o
 | Version 2_Part 2 | 0.871    | 0.575 |      0.001    | 1      |
 | Version 3_Part 2 | 0.928    | 0.393 |      0.001    | 1      |
 
+###Model Accuracy (Part 3 Update)
+I had to redo some of the code in part 3. I think some of the code was not saved on my initial push. However, I was able to get it back to 92% accuracy by fixing the missing code. I also added momentum to our base model. After doing a little research I found that adding momentum works well with the Optimizer that we are utilizing. The final model is 95% accurate with  0.197.
+
 ##Monitoring and Debugging
+
+##Pre-Commit
+To add pre-commit you will need to add it as an adminstrator. This will avoid any incompablity issues or errors. From the Anaconda Navigator open the command line. 
+![Alt Text](Anaconda_screenshot.png)
+From there go to the directory that contains the requirements.txt file.
+Run the pip install -r requirements.command
 
 
 ##Dags Hub Repo and MLflow Links

@@ -5,49 +5,38 @@ import os
 import tensorflow as tf
 
 
-def test_get_base_model(training, prepare_base_model):
-    # First, prepare the base model
-    prepare_base_model.get_base_model()
-    prepare_base_model.update_base_model()
+def test_get_base_model(trained_model):
 
     # Call the method
-    training.get_base_model()
+    trained_model.get_base_model()
 
     # Assert that the model is loaded correctly
-    assert training.model is not None
+    assert trained_model.model is not None
 
 
-def test_train_valid_generator(training):
+def test_train_valid_generator(trained_model):
 
     # Call the method
-    training.train_valid_generator()
+    trained_model.train_valid_generator()
 
     # Assert that the generators are created correctly
-    assert training.train_generator is not None
-    assert training.valid_generator is not None
+    assert trained_model.train_generator is not None
+    assert trained_model.valid_generator is not None
 
 
-def test_train(training, prepare_base_model):
+def test_train(trained_model):
 
-    # First, prepare the base model
-    prepare_base_model.get_base_model()
-    prepare_base_model.update_base_model()
-    training.get_base_model()
-
-    training.train_valid_generator()
-    assert training.train_generator is not None
-    assert training.valid_generator is not None
-    assert training.train_generator.samples > 1
-    assert training.valid_generator.samples > 1
-    assert len(training.train_generator.class_indices) > 0
-    assert len(training.valid_generator.class_indices) > 0
-
-    training.train()
+    assert trained_model.train_generator is not None
+    assert trained_model.valid_generator is not None
+    assert trained_model.train_generator.samples > 1
+    assert trained_model.valid_generator.samples > 1
+    assert len(trained_model.train_generator.class_indices) > 0
+    assert len(trained_model.valid_generator.class_indices) > 0
 
     # Assertions to verify the process
-    assert training.model is not None
-    assert os.path.exists(training.config.trained_model_path)
-    assert isinstance(training.model, tf.keras.Model)
+    assert trained_model.model is not None
+    assert os.path.exists(trained_model.config.trained_model_path)
+    assert isinstance(trained_model.model, tf.keras.Model)
 
 
 # For debugging purposes, print all output to the console
