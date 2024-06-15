@@ -96,7 +96,7 @@ class PrepareBaseModel:
         full_model = tf.keras.models.Model(inputs=model.input, outputs=prediction)
 
         full_model.compile(
-            optimizer=tf.keras.optimizers.SGD(learning_rate=learning_rate, momentum=0.9),
+            optimizer=tf.keras.optimizers.SGD(learning_rate=learning_rate, momentum=0.87),
             loss=tf.keras.losses.CategoricalCrossentropy(reduction="sum_over_batch_size"),
             metrics=["accuracy"],
         )
