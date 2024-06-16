@@ -360,8 +360,21 @@ I had to redo some of the code in part 3. I think some of the code was not saved
 ##Pre-Commit
 To add pre-commit you will need to add it as an adminstrator. This will avoid any incompablity issues or errors. From the Anaconda Navigator open the command line. 
 ![Alt Text](Anaconda_screenshot.png)
+
 From there go to the directory that contains the requirements.txt file.
 Run the pip install -r requirements.command
+
+##Cloud Deployment
+In an effort not to incur extra charges, we had to implement a secondary repo to deploy to the cloud. I still had a free trail. 
+![Alt Text](Cloud_deployed_model.png)
+
+We refactored the code to make it a FastAPI application and used Google Cloud Run to deploy the model.
+![Alt Text](cloud_implementation.png)
+
+
+- Link To Secondary Repo: https://github.com/eTroupe5201/SE489GroupProjectSecondaryRepo
+- Link To Deployed Model: https://se489fastapiapp-wcu57b55lq-uc.a.run.app/
+
 
 
 ##Dags Hub Repo and MLflow Links
