@@ -353,7 +353,7 @@ drastically improved our models accuracy and loss. However, our model is still o
 | Version 3_Part 2 | 0.928    | 0.393 |      0.001    | 1      |
 
 ###Model Accuracy (Part 3 Update)
-I had to redo some of the code in part 3. I think some of the code was not saved on my initial push. However, I was able to get it back to 92% accuracy by fixing the missing code. I also added momentum to our base model. After doing a little research I found that adding momentum works well with the Optimizer that we are utilizing. The final model is 95% accurate with  0.197.
+I had to redo some of the code in part 3. I think some of the code was not saved on my initial push. However, I was able to get it back to 92% accuracy by fixing the missing code. I also added momentum to our base model. After doing a little research I found that adding momentum works well with the Optimizer that we are utilizing. The final model is 95% accurate with  0.197 loss.
 
 ##Monitoring and Debugging
 
@@ -370,11 +370,35 @@ In an effort not to incur extra charges, we had to implement a secondary repo to
 
 We refactored the code to make it a FastAPI application and used Google Cloud Run to deploy the model.
 ![Alt Text](cloud_implementation.png)
-
+![Alt Text](successfulrun.png)
 
 - Link To Secondary Repo: https://github.com/eTroupe5201/SE489GroupProjectSecondaryRepo
 - Link To Deployed Model: https://se489fastapiapp-wcu57b55lq-uc.a.run.app/
 
+
+We also implemented these steps as well.
+
+To download gcloud bash:
+pip install gcloud
+
+Login in to google cloud account:
+gcloud auth login
+
+Set the project that was previously created and install the following:
+gcloud config set project se489groupproject
+pip install --upgrade google-api-python-client
+
+Authenticate Docker:
+gcloud auth configure-docker
+
+We were able to build the docker image with the following command:
+docker build -t gcr.io/se489groupproject/secondary_repo_code:latest .
+
+We were able to push to the google container registry to make an artifact
+docker push gcr.io/se489groupproject/secondary_repo_code:latest 
+
+Go to google cloud run and deploy the app with the artifact and docker image.
+![Alt Text](artifact_registry_screenshot.png)
 
 
 ##Dags Hub Repo and MLflow Links
